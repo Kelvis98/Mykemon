@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>MYKEMON!</title>
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    
+       
+    <section id="Seleccionar-Pet">
+
+        <div class="titulo">
+            <h1>MYKEMON</h1>
+        </div>
+    
+        <h2 class="subtitulo">Selecciona tu Pet:</h2>
+    
+        <div id="contenedor-tarjetas" class="tarjetas">
+            
+        </div>
+
+        <button class="boton-jugar" id="boton-Pet">Play</button>
+
+    </section>
+
+    <section id="ver-mapa">
+        <h1>Recorre el mapa con tu Mykemon</h1>
+        <canvas id="mapa"></canvas>
+        <button onmouseup="detenerMovimiento()" onmousedown="moverArriba()">Arriba</button>
+        <button onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">Izquierda</button>
+        <button onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">Abajo</button>
+        <button onmouseup="detenerMovimiento()" onmousedown="moverDerecho()">Derecho</button>
+    </section>
+
+    <section id="selecionar-ataques">
+            <h1 class="titulo">MYKEMON</h1>
+
+            <h2 id="subtitulo-ataques" class="subtitulo">Selecciona tu ataque:</h2>
+
+            <div id="contenedor-ataques" class="botones">
+              
+            </div>
+            
+            <div id="mensajes">
+                    <p id="resultado">Good Luck</p>
+
+                    <section id="Play again" hidden>
+                        <button id="boton-Play-again">Play again</button>
+                    </section>
+                </div>
+
+
+            <div  class="ataques">
+                <div class="ataques-jugador">
+                    <p>JUGADOR</p>
+                    <p class="vidas-emoji">
+                        <span id="vida-jugador">0</span> <span>🏆</span>
+                    </p>
+                    <img id="imagen-pet-jugador" src="">
+                    <p id="pet-jugador"></p>
+                    <div id="ataque-del-jugador"></div>
+                </div>
+
+                <div class="ataques-pc">
+                    <p>PC</p>
+                    <p class="vidas-emoji">
+                        <span id="vidad-pc">0</span> <span>🏆</span>
+                    </p>
+                    <img id="imagen-pet-pc" src="">
+                    <p id="pet-enemiga"></p>
+                    <div id="ataque-del-pc"></div>
+                </div>
+            </div>
+  
+    </section>
+    <script src="./js/Mykemon.js"></script>
+</body>
+
+</html>

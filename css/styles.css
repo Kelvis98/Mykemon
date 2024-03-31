@@ -1,0 +1,252 @@
+body{
+    font-family: "Pixelify Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    background-color: #E8D8C4;
+}
+
+#Seleccionar-Pet{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo {
+    color: #561C24;
+    font-size: 42px;
+}
+.subtitulo{
+    color: #6D2932;
+    font-size: 48px;
+
+}
+
+.tarjetas{
+    display: flex;
+    gap: 37px;
+}
+
+.tarjeta-de-mykemon{
+    width: 200px;
+    height: 225px;
+    background: bisque;
+    border: solid 2px lavenderblush;
+    box-sizing: border-box;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    justify-content: center;
+    margin-top: 38px;
+}
+
+.tarjeta-de-mykemon:hover{
+    cursor: pointer;
+    border: solid 2px black;
+}
+
+.tarjeta-de-mykemon img{
+    height: auto;
+    width: auto;
+    max-height: 100px;
+    max-width: 100px;
+}
+
+.tarjeta-de-mykemon p{
+    font-size: 20px;
+}
+
+input{
+   display: none;
+}
+
+#Hipodoge:checked + label, #Langostelvis:checked + label{
+    background-color: blue;
+}
+
+#Hipodoge:hover  + label, #Langostelvis:hover  + label{
+    background-color: blue;
+}
+
+#Capipepo:checked + label, #Tucapalma:checked + label{
+    background-color: forestgreen;
+}
+
+#Capipepo:hover  + label, #Tucapalma:hover  + label{
+    background-color: forestgreen;
+}
+
+#Ratigueya:checked  + label, #Pydos:checked  + label{
+    background-color: #6D2932;
+}
+
+#Ratigueya:hover  + label, #Pydos:hover  + label{
+    background-color: #6D2932;
+}
+
+.boton-jugar{
+    width: 150px;
+    height: 70px;
+    border-radius: 12px;
+    background: transparent;
+    border: 2px solid #6D2932;
+    color: firebrick;
+    font-family: "Pixelify Sans", sans-serif;
+    margin-top: 50px;
+    font-size: 24px;
+}
+
+.boton-jugar:hover{
+    cursor: pointer;
+    background-color: aliceblue;
+}
+
+#selecionar-ataques{
+    flex-direction: column;
+    align-items: center;
+}
+
+.botones{
+    display: flex;
+    gap: 40px;
+}
+
+.boton-ataques{
+    background-color: bisque;
+    border-radius: 20px;
+    box-sizing: border-box;
+    padding: 10px;
+    width: 98px;
+    border: solid 2px lavenderblush;
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 24px;
+    height: 60px;
+}
+
+#boton-Fire{
+    color: firebrick;
+}
+
+#boton-Water{
+    color: blue;
+}
+
+#boton-Ground{
+    color: forestgreen;
+}
+
+
+#boton-Fire:hover{
+    cursor: pointer;
+    background-color: #b4581b;
+    color: black;
+    border-color: black;
+}
+
+#boton-Water:hover{
+    cursor: pointer;
+    background-color: blue;
+    color: black;
+    border-color: black;
+}
+
+#boton-Ground:hover{
+    cursor: pointer;
+    background-color: forestgreen;
+    color: black;
+    border-color: black;
+}
+
+#mensajes{
+    width: 258px;
+    background: bisque;
+    padding: 20px;
+    margin-top: 27px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 24px;
+    border: solid 2px lavenderblush;
+}
+
+#resultado{
+    font-size: 28px;
+    color:#EB5033;
+    
+}
+
+#boton-Play-again{
+    color: black;
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 17px;
+    padding: 6px 11px;
+    background: lavenderblush;
+    border-radius: 5px;
+}
+
+#boton-Play-again:hover{
+    cursor: pointer;
+    background-color: rgb(194, 194, 132);
+    border-radius: 5px;
+}
+
+.ataques{
+    display: grid;
+    grid-template-columns: 200px 200px;
+    margin-top: 30px;
+    column-gap: 100px;
+    font-size: 19px;
+    
+}
+
+.ataques img{
+    height: auto;
+    width: auto;
+    max-height: 100px;
+    max-width: 100px;
+}
+
+.ataques-jugador, .ataques-pc{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: solid 2px lavenderblush;
+    border-radius: 28px;
+    background: bisque;
+}
+
+.vidas-emoji{
+    font-size: x-large
+}
+
+#ver-mapa{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#mapa{
+    border: 2px solid white;
+}
+
+@media (max-width: 400px){
+    .tarjetas{
+        flex-direction: column;
+        gap: 25px;
+    }
+    .subtitulo{
+        font-size: 30px;
+    }
+    .boton-ataques{
+        flex-direction: column;
+    }
+    .botones{
+        display: flex;
+    flex-direction: column;
+    gap: 20px;
+    }
+    
+}
+

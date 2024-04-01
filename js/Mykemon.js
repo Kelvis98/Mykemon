@@ -28,6 +28,7 @@ const sectionVerMapa = document.getElementById("ver-mapa")
 const mapa = document.getElementById("mapa")
 
 let mykemones = []
+let mykemonesPc = []
 let ataqueJugador = []
 let ataqueEnemigo = []
 let opcionDeMykemones
@@ -61,7 +62,7 @@ let mapaBackground = new Image()
 mapaBackground.src = "./assets/Mykemap.png"
 
 class Mykemon{
-    constructor(nombre, foto, vida, x = aleatorio(1, 500), y = aleatorio(1, 500) ){
+    constructor(nombre, foto, vida, x = aleatorio(1, 780), y = aleatorio(1, 580) ){
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
@@ -87,11 +88,11 @@ class Mykemon{
     }
 }
 
-let hipodoge = new Mykemon("Hipodoge", "./assets/Hipodoge.png", 5, 250, 250)
-let capipepo = new Mykemon("Capipepo", "./assets/Capipepo.png", 5, 250, 250)
-let ratigueya = new Mykemon("Ratigueya", "./assets/Ratigueya.png", 5, 250, 250)
-let langostelvis = new Mykemon("Langostelvis", "./assets/Langostelvis.gif", 5, 250, 250)
-let tucapalma = new Mykemon("Tucapalma", "./assets/Tucapalma.gif", 5, 250, 250)
+let hipodoge = new Mykemon("Hipodoge", "./assets/Hipodoge.png", 5, 10, 10)
+let capipepo = new Mykemon("Capipepo", "./assets/Capipepo.png", 5, 10, 10)
+let ratigueya = new Mykemon("Ratigueya", "./assets/Ratigueya.png", 5, 10, 10)
+let langostelvis = new Mykemon("Langostelvis", "./assets/Langostelvis.gif", 5, 10, 10)
+let tucapalma = new Mykemon("Tucapalma", "./assets/Tucapalma.gif", 5, 10, 10)
 let pydos = new Mykemon("Pydos", "./assets/Pydos.gif",5)
 
 let hipodogePc = new Mykemon("Hipodoge", "./assets/Hipodoge.png",5)
@@ -150,6 +151,7 @@ pydos.ataques.push(
 )
 
 mykemones.push(hipodoge, capipepo, ratigueya, langostelvis, tucapalma, pydos)
+mykemonesPc.push(hipodogePc, capipepoPC, ratigueyaPC, langostelvisPC, tucapalmaPC, pydosPC)
 
 function iniciarJuego(){
     
@@ -410,12 +412,14 @@ function pintarCanvas(){
         mapa.height
     )
     petJugadorObjeto.pintarMykemon()
-    langostelvisPC.pintarMykemon()
-    hipodogePc.pintarMykemon()
-    capipepoPC.pintarMykemon()
-    ratigueyaPC.pintarMykemon()
-    tucapalmaPC.pintarMykemon()
-    pydosPC.pintarMykemon()
+    
+    mykemonesPc.forEach((mykemonPc) => {
+        mykemonPc.pintarMykemon()
+        if(petJugadorObjeto.velocidadX !== 0 ||
+            petJugadorObjeto.velocidadY !== 0){
+                revisarColision(mykemonPc)
+            }
+    })
 }
 
 function moverArriba(){
@@ -483,6 +487,31 @@ function obtenerObjetoMascota(){
         }
     }
 
+}
+
+function revisarColision(enemigo){
+
+    const arribaPetPc = enemigo.y
+    const abajoPetPc = enemigo.y + enemigo.alto
+    const izquierdaPetPc = enemigo.x
+    const derechaPetPC = enemigo.x + enemigo.ancho
+
+    const arribaPet = petJugadorObjeto.y
+    const abajoPet = petJugadorObjeto.y + petJugadorObjeto.alto
+    const izquierdaPet = petJugadorObjeto.x
+    const derechaPet = petJugadorObjeto.x + petJugadorObjeto.ancho
+    
+    if(
+        abajoPet < arribaPetPc ||
+        arribaPet > abajoPetPc ||
+        derechaPet < izquierdaPetPc ||
+        izquierdaPet > derechaPetPC
+    ){
+        return
+    }
+
+    detenerMovimiento()
+    alert("Inicia el combate con " + enemigo.nombre)
 }
 
 window.addEventListener('load', iniciarJuego)

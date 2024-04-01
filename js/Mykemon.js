@@ -93,7 +93,7 @@ let capipepo = new Mykemon("Capipepo", "./assets/Capipepo.png", 5, 10, 10)
 let ratigueya = new Mykemon("Ratigueya", "./assets/Ratigueya.png", 5, 10, 10)
 let langostelvis = new Mykemon("Langostelvis", "./assets/Langostelvis.gif", 5, 10, 10)
 let tucapalma = new Mykemon("Tucapalma", "./assets/Tucapalma.gif", 5, 10, 10)
-let pydos = new Mykemon("Pydos", "./assets/Pydos.gif",5)
+let pydos = new Mykemon("Pydos", "./assets/Pydos.gif", 5, 10, 10)
 
 let hipodogePc = new Mykemon("Hipodoge", "./assets/Hipodoge.png",5)
 let capipepoPC = new Mykemon("Capipepo", "./assets/Capipepo.png",5)
@@ -110,7 +110,23 @@ hipodoge.ataques.push(
     { nombre: "☘️", id:"boton-Ground" },
 )
 
+hipodogePc.ataques.push(
+    { nombre: "💧", id:"boton-Water" },
+    { nombre: "💧", id:"boton-Water" },
+    { nombre: "💧", id:"boton-Water" },
+    { nombre: "🔥", id:"boton-Fire" },
+    { nombre: "☘️", id:"boton-Ground" },
+)
+
 capipepo.ataques.push(
+    { nombre: "☘️", id:"boton-Ground" },
+    { nombre: "☘️", id:"boton-Ground" },
+    { nombre: "☘️", id:"boton-Ground" },
+    { nombre: "💧", id:"boton-Water" },
+    { nombre: "🔥", id:"boton-Fire" },
+)
+
+capipepoPC.ataques.push(
     { nombre: "☘️", id:"boton-Ground" },
     { nombre: "☘️", id:"boton-Ground" },
     { nombre: "☘️", id:"boton-Ground" },
@@ -126,7 +142,23 @@ ratigueya.ataques.push(
     { nombre: "☘️", id:"boton-Ground" },
 )
 
+ratigueyaPC.ataques.push(
+    { nombre: "🔥", id:"boton-Fire" },
+    { nombre: "🔥", id:"boton-Fire" },
+    { nombre: "🔥", id:"boton-Fire" },
+    { nombre: "💧", id:"boton-Water" },
+    { nombre: "☘️", id:"boton-Ground" },
+)
+
 langostelvis.ataques.push(
+    { nombre: "💧", id:"boton-Water" },
+    { nombre: "💧", id:"boton-Water" },
+    { nombre: "💧", id:"boton-Water" },
+    { nombre: "🔥", id:"boton-Fire" },
+    { nombre: "☘️", id:"boton-Ground" },
+)
+
+langostelvisPC.ataques.push(
     { nombre: "💧", id:"boton-Water" },
     { nombre: "💧", id:"boton-Water" },
     { nombre: "💧", id:"boton-Water" },
@@ -142,6 +174,14 @@ tucapalma.ataques.push(
     { nombre: "🔥", id:"boton-Fire" },
 )
 
+tucapalmaPC.ataques.push(
+    { nombre: "☘️", id:"boton-Ground" },
+    { nombre: "☘️", id:"boton-Ground" },
+    { nombre: "☘️", id:"boton-Ground" },
+    { nombre: "💧", id:"boton-Water" },
+    { nombre: "🔥", id:"boton-Fire" },
+)
+
 pydos.ataques.push(
     { nombre: "🔥", id:"boton-Fire" },
     { nombre: "🔥", id:"boton-Fire" },
@@ -149,6 +189,15 @@ pydos.ataques.push(
     { nombre: "💧", id:"boton-Water" },
     { nombre: "☘️", id:"boton-Ground" },
 )
+
+pydosPC.ataques.push(
+    { nombre: "🔥", id:"boton-Fire" },
+    { nombre: "🔥", id:"boton-Fire" },
+    { nombre: "🔥", id:"boton-Fire" },
+    { nombre: "💧", id:"boton-Water" },
+    { nombre: "☘️", id:"boton-Ground" },
+)
+
 
 mykemones.push(hipodoge, capipepo, ratigueya, langostelvis, tucapalma, pydos)
 mykemonesPc.push(hipodogePc, capipepoPC, ratigueyaPC, langostelvisPC, tucapalmaPC, pydosPC)
@@ -228,13 +277,11 @@ function seleccionarPetJugador(){
     if(jugar){
 
         sectionPet.style.display = "none"
-        //sectionAtaques.style.display = "flex"
         sectionVerMapa.style.display =  "flex"
         
+        extraerAtaques(petJugador)
         iniciarMapa()
         
-        extraerAtaques(petJugador)
-        seleccionarPetPc()
     }
     
 }
@@ -263,15 +310,11 @@ function mostrarAtaques(ataques){
 }
 
 //Funcion de seleccion de la PC
-function  seleccionarPetPc(){
+function  seleccionarPetPc(enemigo){
 
-    let petRandom = aleatorio(0, mykemones.length -1)
-    
-    spanPetPc.innerHTML = mykemones[petRandom].nombre
-    pImgaenPetPc.src= mykemones[petRandom].foto
-    ataquesMykemonPc = mykemones[petRandom].ataques
-    
-
+    spanPetPc.innerHTML = enemigo.nombre
+    pImgaenPetPc.src= enemigo.foto
+    ataquesMykemonPc = enemigo.ataques
     secuenciaAtaques()
 
 }
@@ -316,7 +359,6 @@ function ataqueRandomEnemigo(){
         ataqueEnemigo.push("GROUND") 
         ataquesMykemonPc.splice(ataqueRandom,1)
     }
-
     iniciarpelea()
 }
 
@@ -423,19 +465,19 @@ function pintarCanvas(){
 }
 
 function moverArriba(){
-   petJugadorObjeto.velocidadY = -5
+   petJugadorObjeto.velocidadY = -7
 }
 
 function moverIzquierda(){
-    petJugadorObjeto.velocidadX = -5
+    petJugadorObjeto.velocidadX = -7
 }
 
  function moverAbajo(){
-    petJugadorObjeto.velocidadY = 5
+    petJugadorObjeto.velocidadY = 7
 }
 
  function moverDerecho(){
-    petJugadorObjeto.velocidadX = 5
+    petJugadorObjeto.velocidadX = 7
 }
 
 function detenerMovimiento(){
@@ -510,8 +552,15 @@ function revisarColision(enemigo){
         return
     }
 
+    
     detenerMovimiento()
-    alert("Inicia el combate con " + enemigo.nombre)
+    
+    clearInterval(intervalo)
+    
+    sectionVerMapa.style.display = "none"
+    sectionAtaques.style.display = "flex"
+    
+    seleccionarPetPc(enemigo)
 }
 
 window.addEventListener('load', iniciarJuego)

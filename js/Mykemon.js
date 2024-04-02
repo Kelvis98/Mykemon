@@ -61,8 +61,8 @@ let intervalo
 let mapaBackground = new Image()
 mapaBackground.src = "./assets/Mykemap.png"
 let alturaBuscada
-let anchoDelMapa = window.innerWidth - 20
-const anchoMaximoMapa = 350
+let anchoDelMapa = window.innerWidth - 40
+const anchoMaximoMapa = 800
 
 if(anchoDelMapa > anchoMaximoMapa){
     anchoDelMapa = anchoMaximoMapa - 20
@@ -72,6 +72,10 @@ alturaBuscada = anchoDelMapa * 600 / 800
 
 mapa.width = anchoDelMapa
 mapa.height = alturaBuscada
+
+
+
+
 
 
 

@@ -227,11 +227,24 @@ input{
     justify-content: center;
 }
 
-@media (max-width: 400px){
+#ver-mapa button{
+    width: 80px;
+    height: 40px;
+    border-radius: 20px;
+    background: transparent;
+    border: 2px solid #6D2932;
+    color: firebrick;
+    margin: 10px 2px;
+
+}
+
+@media (max-width: 1400px){
+
     .tarjetas{
-        flex-direction: column;
-        gap: 25px;
+        display: grid;
+        grid-template-columns: 188px 198px;
     }
+
     .subtitulo{
         font-size: 30px;
     }
@@ -243,6 +256,18 @@ input{
     flex-direction: column;
     gap: 20px;
     }
+    .ataques {
+        column-gap: 35px;
+    }
     
 }
 
+@media (max-width: 300px){
+
+    #ver-mapa div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+}

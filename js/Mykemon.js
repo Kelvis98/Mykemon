@@ -60,17 +60,31 @@ let lienzo = mapa.getContext("2d")
 let intervalo
 let mapaBackground = new Image()
 mapaBackground.src = "./assets/Mykemap.png"
+let alturaBuscada
+let anchoDelMapa = window.innerWidth - 20
+const anchoMaximoMapa = 350
+
+if(anchoDelMapa > anchoMaximoMapa){
+    anchoDelMapa = anchoMaximoMapa - 20
+}
+
+alturaBuscada = anchoDelMapa * 600 / 800
+
+mapa.width = anchoDelMapa
+mapa.height = alturaBuscada
+
+
 
 class Mykemon{
-    constructor(nombre, foto, vida, x = aleatorio(1, 780), y = aleatorio(1, 580) ){
+    constructor(nombre, foto, vida){
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
         this.ataques = []
-        this.x = x
-        this.y = y
-        this.ancho = 80
-        this.alto = 80
+        this.ancho = 50
+        this.alto = 50
+        this.x = aleatorio(0, mapa.width - this.ancho)
+        this.y = aleatorio(0, mapa.height - this.alto)
         this.mapaFoto = new Image()
         this.mapaFoto.src = foto
         this.velocidadX = 0
@@ -88,12 +102,12 @@ class Mykemon{
     }
 }
 
-let hipodoge = new Mykemon("Hipodoge", "./assets/Hipodoge.png", 5, 10, 10)
-let capipepo = new Mykemon("Capipepo", "./assets/Capipepo.png", 5, 10, 10)
-let ratigueya = new Mykemon("Ratigueya", "./assets/Ratigueya.png", 5, 10, 10)
-let langostelvis = new Mykemon("Langostelvis", "./assets/Langostelvis.gif", 5, 10, 10)
-let tucapalma = new Mykemon("Tucapalma", "./assets/Tucapalma.gif", 5, 10, 10)
-let pydos = new Mykemon("Pydos", "./assets/Pydos.gif", 5, 10, 10)
+let hipodoge = new Mykemon("Hipodoge", "./assets/Hipodoge.png", 5,)
+let capipepo = new Mykemon("Capipepo", "./assets/Capipepo.png", 5,)
+let ratigueya = new Mykemon("Ratigueya", "./assets/Ratigueya.png", 5,)
+let langostelvis = new Mykemon("Langostelvis", "./assets/Langostelvis.gif", 5,)
+let tucapalma = new Mykemon("Tucapalma", "./assets/Tucapalma.gif", 5,)
+let pydos = new Mykemon("Pydos", "./assets/Pydos.gif", 5,)
 
 let hipodogePc = new Mykemon("Hipodoge", "./assets/Hipodoge.png",5)
 let capipepoPC = new Mykemon("Capipepo", "./assets/Capipepo.png",5)
@@ -510,8 +524,7 @@ function sePresionoUnaTecla(event){
 }
 
 function  iniciarMapa(){
-    mapa.width = 800
-    mapa.height = 600
+   
     petJugadorObjeto = obtenerObjetoMascota(petJugador)
 
 

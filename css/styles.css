@@ -227,10 +227,6 @@ input{
     justify-content: center;
 }
 
-#mapa{
-    border: 2px solid white;
-}
-
 @media (max-width: 400px){
     .tarjetas{
         flex-direction: column;

@@ -27,6 +27,7 @@ const subtituloAtaques = document.getElementById("subtitulo-ataques")
 const sectionVerMapa = document.getElementById("ver-mapa")
 const mapa = document.getElementById("mapa")
 
+let jugadorId 
 let mykemones = []
 let mykemonesPc = []
 let ataqueJugador = []
@@ -247,6 +248,21 @@ function iniciarJuego(){
     
     botonPlayAgain.addEventListener("click", reiniciarJuego)
 
+    unirseAlJuego()
+
+}
+
+function unirseAlJuego(){
+    fetch("http://localhost:8080/unirse")
+        .then( (res) => {
+            if(res.ok){
+                res.text()
+                    .then((respuesta) => {
+                        console.log(respuesta)
+                        jugadorId = respuesta
+                    })
+            }
+        })
 }
 
 //Funcion de seleccion del jugador
@@ -292,6 +308,8 @@ function seleccionarPetJugador(){
         //Solo si el jugador no elige una Pet
     }
 
+    seleccionarMykemon(petJugador)
+
     if(jugar){
 
         sectionPet.style.display = "none"
@@ -302,6 +320,20 @@ function seleccionarPetJugador(){
         
     }
     
+}
+
+function seleccionarMykemon(petJugador){
+    fetch(`http://localhost:8080/mykemon/${jugadorId}`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          mykemon: petJugador  
+        })
+    })
+    
+
 }
 
 function extraerAtaques(petJugador){

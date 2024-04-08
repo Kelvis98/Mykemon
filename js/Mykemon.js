@@ -29,7 +29,6 @@ const mapa = document.getElementById("mapa")
 
 let jugadorId 
 let mykemones = []
-let mykemonesPc = []
 let ataqueJugador = []
 let ataqueEnemigo = []
 let opcionDeMykemones
@@ -81,7 +80,8 @@ mapa.height = alturaBuscada
 
 
 class Mykemon{
-    constructor(nombre, foto, vida){
+    constructor(nombre, foto, vida, id = null){
+        this.id = id
         this.nombre = nombre
         this.foto = foto
         this.vida = vida
@@ -114,112 +114,68 @@ let langostelvis = new Mykemon("Langostelvis", "./assets/Langostelvis.gif", 5,)
 let tucapalma = new Mykemon("Tucapalma", "./assets/Tucapalma.gif", 5,)
 let pydos = new Mykemon("Pydos", "./assets/Pydos.gif", 5,)
 
-let hipodogePc = new Mykemon("Hipodoge", "./assets/Hipodoge.png",5)
-let capipepoPC = new Mykemon("Capipepo", "./assets/Capipepo.png",5)
-let ratigueyaPC = new Mykemon("Ratigueya", "./assets/Ratigueya.png",5)
-let langostelvisPC = new Mykemon("Langostelvis", "./assets/Langostelvis.gif",5)
-let tucapalmaPC = new Mykemon("Tucapalma", "./assets/Tucapalma.gif",5)
-let pydosPC = new Mykemon("Pydos", "./assets/Pydos.gif",5)
+const hipodoge_ataques = [
+{ nombre: "💧", id:"boton-Water" },
+{ nombre: "💧", id:"boton-Water" },
+{ nombre: "💧", id:"boton-Water" },
+{ nombre: "🔥", id:"boton-Fire" },
+{ nombre: "☘️", id:"boton-Ground" },
+]
 
-hipodoge.ataques.push(
-    { nombre: "💧", id:"boton-Water" },
-    { nombre: "💧", id:"boton-Water" },
-    { nombre: "💧", id:"boton-Water" },
-    { nombre: "🔥", id:"boton-Fire" },
-    { nombre: "☘️", id:"boton-Ground" },
-)
+hipodoge.ataques.push(...hipodoge_ataques)
 
-hipodogePc.ataques.push(
-    { nombre: "💧", id:"boton-Water" },
-    { nombre: "💧", id:"boton-Water" },
+const capipepo_ataques = [
+    { nombre: "☘️", id:"boton-Ground" },
+    { nombre: "☘️", id:"boton-Ground" },
+    { nombre: "☘️", id:"boton-Ground" },
     { nombre: "💧", id:"boton-Water" },
     { nombre: "🔥", id:"boton-Fire" },
-    { nombre: "☘️", id:"boton-Ground" },
-)
+]
 
-capipepo.ataques.push(
-    { nombre: "☘️", id:"boton-Ground" },
-    { nombre: "☘️", id:"boton-Ground" },
-    { nombre: "☘️", id:"boton-Ground" },
-    { nombre: "💧", id:"boton-Water" },
-    { nombre: "🔥", id:"boton-Fire" },
-)
+capipepo.ataques.push(...capipepo_ataques)
 
-capipepoPC.ataques.push(
-    { nombre: "☘️", id:"boton-Ground" },
-    { nombre: "☘️", id:"boton-Ground" },
-    { nombre: "☘️", id:"boton-Ground" },
-    { nombre: "💧", id:"boton-Water" },
+const ratigueya_ataques = [
     { nombre: "🔥", id:"boton-Fire" },
-)
+    { nombre: "🔥", id:"boton-Fire" },
+    { nombre: "🔥", id:"boton-Fire" },
+    { nombre: "💧", id:"boton-Water" },
+    { nombre: "☘️", id:"boton-Ground" },
+]
 
-ratigueya.ataques.push(
-    { nombre: "🔥", id:"boton-Fire" },
-    { nombre: "🔥", id:"boton-Fire" },
-    { nombre: "🔥", id:"boton-Fire" },
-    { nombre: "💧", id:"boton-Water" },
-    { nombre: "☘️", id:"boton-Ground" },
-)
+ratigueya.ataques.push(...ratigueya_ataques)
 
-ratigueyaPC.ataques.push(
-    { nombre: "🔥", id:"boton-Fire" },
-    { nombre: "🔥", id:"boton-Fire" },
-    { nombre: "🔥", id:"boton-Fire" },
+const langostelvis_ataques = [
     { nombre: "💧", id:"boton-Water" },
+    { nombre: "💧", id:"boton-Water" },
+    { nombre: "💧", id:"boton-Water" },
+    { nombre: "🔥", id:"boton-Fire" },
     { nombre: "☘️", id:"boton-Ground" },
-)
+]
 
-langostelvis.ataques.push(
-    { nombre: "💧", id:"boton-Water" },
-    { nombre: "💧", id:"boton-Water" },
-    { nombre: "💧", id:"boton-Water" },
-    { nombre: "🔥", id:"boton-Fire" },
-    { nombre: "☘️", id:"boton-Ground" },
-)
+langostelvis.ataques.push(...langostelvis_ataques)
 
-langostelvisPC.ataques.push(
-    { nombre: "💧", id:"boton-Water" },
-    { nombre: "💧", id:"boton-Water" },
+const tucapalma_ataques = [
+    { nombre: "☘️", id:"boton-Ground" },
+    { nombre: "☘️", id:"boton-Ground" },
+    { nombre: "☘️", id:"boton-Ground" },
     { nombre: "💧", id:"boton-Water" },
     { nombre: "🔥", id:"boton-Fire" },
-    { nombre: "☘️", id:"boton-Ground" },
-)
+]
 
-tucapalma.ataques.push(
-    { nombre: "☘️", id:"boton-Ground" },
-    { nombre: "☘️", id:"boton-Ground" },
-    { nombre: "☘️", id:"boton-Ground" },
-    { nombre: "💧", id:"boton-Water" },
-    { nombre: "🔥", id:"boton-Fire" },
-)
+tucapalma.ataques.push(tucapalma_ataques)
 
-tucapalmaPC.ataques.push(
-    { nombre: "☘️", id:"boton-Ground" },
-    { nombre: "☘️", id:"boton-Ground" },
-    { nombre: "☘️", id:"boton-Ground" },
-    { nombre: "💧", id:"boton-Water" },
+const pydos_ataques = [
     { nombre: "🔥", id:"boton-Fire" },
-)
+    { nombre: "🔥", id:"boton-Fire" },
+    { nombre: "🔥", id:"boton-Fire" },
+    { nombre: "💧", id:"boton-Water" },
+    { nombre: "☘️", id:"boton-Ground" },
+]
 
-pydos.ataques.push(
-    { nombre: "🔥", id:"boton-Fire" },
-    { nombre: "🔥", id:"boton-Fire" },
-    { nombre: "🔥", id:"boton-Fire" },
-    { nombre: "💧", id:"boton-Water" },
-    { nombre: "☘️", id:"boton-Ground" },
-)
-
-pydosPC.ataques.push(
-    { nombre: "🔥", id:"boton-Fire" },
-    { nombre: "🔥", id:"boton-Fire" },
-    { nombre: "🔥", id:"boton-Fire" },
-    { nombre: "💧", id:"boton-Water" },
-    { nombre: "☘️", id:"boton-Ground" },
-)
+pydos.ataques.push(...pydos_ataques)
 
 
 mykemones.push(hipodoge, capipepo, ratigueya, langostelvis, tucapalma, pydos)
-mykemonesPc.push(hipodogePc, capipepoPC, ratigueyaPC, langostelvisPC, tucapalmaPC, pydosPC)
 
 function iniciarJuego(){
     
@@ -504,14 +460,53 @@ function pintarCanvas(){
         mapa.height
     )
     petJugadorObjeto.pintarMykemon()
+
+    enviarPosicion(petJugadorObjeto.x, petJugadorObjeto.y)
     
-    mykemonesPc.forEach((mykemonPc) => {
-        mykemonPc.pintarMykemon()
-        if(petJugadorObjeto.velocidadX !== 0 ||
-            petJugadorObjeto.velocidadY !== 0){
-                revisarColision(mykemonPc)
-            }
+}
+
+function enviarPosicion(x, y){
+    fetch(`http://localhost:8080/mykemon/${jugadorId}/posicion`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            x,
+            y
+        })
     })
+        .then(function (res){
+            if(res.ok){
+                res.json()
+                    .then(function ({enemigos}){
+                        console.log(enemigos)
+                        enemigos.forEach((enemigo)=> {
+                            let mykemonEnemigo = null
+                            if(enemigo.mykemon != undefined){
+                            const mykemonNombre = enemigo.mykemon.nombre || ""
+                                if(mykemonNombre === "Hipodoge"){
+                                    mykemonEnemigo = new Mykemon("Hipodoge", "./assets/Hipodoge.png",5)
+                                } else if(mykemonNombre === "Capipepo"){
+                                    mykemonEnemigo = new Mykemon("Capipepo", "./assets/Capipepo.png",5)
+                                }else if(mykemonNombre === "Ratigueya"){
+                                    mykemonEnemigo = new Mykemon("Ratigueya", "./assets/Ratigueya.png",5)
+                                }else if (mykemonNombre === "Langostelvis"){
+                                    mykemonEnemigo = new Mykemon("Langostelvis", "./assets/Langostelvis.gif",5)
+                                }else if(mykemonNombre === "Tucapalma"){
+                                    mykemonEnemigo = new Mykemon("Tucapalma", "./assets/Tucapalma.gif",5)
+                                }else if(mykemonNombre === "Pydos"){
+                                    mykemonEnemigo = new Mykemon("Pydos", "./assets/Pydos.gif",5)
+                                }
+
+                            mykemonEnemigo.x = enemigo.x
+                            mykemonEnemigo.y = enemigo.y
+                            mykemonEnemigo.pintarMykemon()
+                        }
+                        })
+                    })
+            }
+        })
 }
 
 function moverArriba(){

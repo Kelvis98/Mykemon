@@ -17,6 +17,11 @@ class Jugador{
     asignarMykemon(mykemon){
         this.mykemon = mykemon
     }
+
+    actualizaPosicion(x, y){
+        this.x = x
+        this.y = y
+    }
 }
 
 class Mykemon {
@@ -47,10 +52,28 @@ app.post("/mykemon/:jugadorId", (req, res) => {
     if(jugadorIndex >= 0){
         jugadores[jugadorIndex].asignarMykemon(mykemon)
     }
-    
+
     console.log(jugadores)
     console.log(jugadorId)
     res.end()
+})
+
+app.post("/mykemon/:jugadorId/posicion", (req, res) => {
+    const jugadorId = req.params.jugadorId || ""
+    const x = req.body.x || 0
+    const y = req.body.y || 0
+
+    const jugadorIndex = jugadores.findIndex((jugador) => jugadorId === jugador.id)
+
+    if(jugadorIndex >= 0){
+        jugadores[jugadorIndex].actualizaPosicion(x, y)
+    }
+
+    const enemigos = jugadores.filter((jugador) => jugadorId !== jugador.id)
+
+    res.send({
+        enemigos
+    })
 })
 
 app.listen(port, () => {

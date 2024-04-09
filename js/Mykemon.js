@@ -75,12 +75,6 @@ alturaBuscada = anchoDelMapa * 600 / 800
 mapa.width = anchoDelMapa
 mapa.height = alturaBuscada
 
-
-
-
-
-
-
 class Mykemon{
     constructor(nombre, foto, vida, id = null){
         this.id = id
@@ -164,7 +158,7 @@ const tucapalma_ataques = [
     { nombre: "🔥", id:"boton-Fire" },
 ]
 
-tucapalma.ataques.push(tucapalma_ataques)
+tucapalma.ataques.push(...tucapalma_ataques)
 
 const pydos_ataques = [
     { nombre: "🔥", id:"boton-Fire" },
@@ -272,7 +266,6 @@ function seleccionarPetJugador(){
 
         sectionPet.style.display = "none"
         sectionVerMapa.style.display =  "flex"
-        
         extraerAtaques(petJugador)
         iniciarMapa()
         
@@ -306,15 +299,14 @@ function extraerAtaques(petJugador){
 }
 
 function mostrarAtaques(ataques){
-    ataques.forEach( (ataque) => {
-        ataquesMykemon = `
+    ataques.forEach((ataque) => {
+        let ataquesMykemon = `
         <button id=${ataque.id} class="boton-ataques Bataques">${ataque.nombre}</button>
         `
         contenedorAtaques.innerHTML +=  ataquesMykemon
     } )
     
     botones = document.querySelectorAll(".Bataques")
-   
 }
 
 //Funcion de seleccion de la PC
@@ -410,6 +402,7 @@ function combate(){
     }
     
     revisarVidas()
+    
 }
 
 function revisarVidas(){
@@ -449,7 +442,6 @@ function mensajeResultado(resultadoFinal){
 
 function reiniciarJuego(){
     location.reload()
-    clear
 }
 
 //Funcion de numeros aleatorios
@@ -473,11 +465,12 @@ function pintarCanvas(){
 
     enviarPosicion(petJugadorObjeto.x, petJugadorObjeto.y)
 
-    mykemonesPc.forEach((mykemon) => {
-        mykemon.pintarMykemon()
-        revisarColision(mykemon)
-    })
-    
+    if(mykemonesPc != undefined && mykemonesPc.length > 0 && mykemonesPc != ""){
+        mykemonesPc.forEach((mykemon) => {
+            mykemon.pintarMykemon()
+            revisarColision(mykemon)
+        })
+    }
 }
 
 function enviarPosicion(x, y){
@@ -495,7 +488,6 @@ function enviarPosicion(x, y){
             if(res.ok){
                 res.json()
                     .then(function ({enemigos}){
-                        console.log(enemigos)
                         mykemonesPc = enemigos.map((enemigo)=> {
                             let mykemonEnemigo = null
                             if(enemigo.mykemon != undefined){
@@ -506,7 +498,7 @@ function enviarPosicion(x, y){
                                     mykemonEnemigo = new Mykemon("Capipepo", "./assets/Capipepo.png",5, enemigo.id)
                                 }else if(mykemonNombre === "Ratigueya"){
                                     mykemonEnemigo = new Mykemon("Ratigueya", "./assets/Ratigueya.png",5, enemigo.id)
-                                }else if (mykemonNombre === "Langostelvis"){
+                                }else if(mykemonNombre === "Langostelvis"){
                                     mykemonEnemigo = new Mykemon("Langostelvis", "./assets/Langostelvis.gif",5, enemigo.id)
                                 }else if(mykemonNombre === "Tucapalma"){
                                     mykemonEnemigo = new Mykemon("Tucapalma", "./assets/Tucapalma.gif",5, enemigo.id)

@@ -27,8 +27,10 @@ const subtituloAtaques = document.getElementById("subtitulo-ataques")
 const sectionVerMapa = document.getElementById("ver-mapa")
 const mapa = document.getElementById("mapa")
 
-let jugadorId 
+let jugadorId = null
+let pcId = null
 let mykemones = []
+let mykemonesPc = []
 let ataqueJugador = []
 let ataqueEnemigo = []
 let opcionDeMykemones
@@ -343,35 +345,41 @@ function secuenciaAtaques() {
                 boton.style.background = "#112f58"
                 boton.disabled = true
             }
-            ataqueRandomEnemigo()
+            if(ataqueJugador.length === 5){
+                enviarAtaques()
+            }
         })
     })
     
 }
 
+function enviarAtaques(){
+    fetch(`http://localhost:8080/mykemon/${jugadorId}/ataques`,{
+        method: "post",
+        headers:{
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            ataques: ataqueJugador
+        })
+    })
 
-
-function ataqueRandomEnemigo(){
-
-    let ataqueRandom = aleatorio(0, ataquesMykemonPc.length -1)
-
-    if(ataquesMykemonPc[ataqueRandom].nombre === "🔥"){
-        ataqueEnemigo.push("FIRE")
-        ataquesMykemonPc.splice(ataqueRandom,1)
-    }else if(ataquesMykemonPc[ataqueRandom].nombre === "💧"){
-        ataqueEnemigo.push("WATER")
-        ataquesMykemonPc.splice(ataqueRandom,1)
-    }else{
-        ataqueEnemigo.push("GROUND") 
-        ataquesMykemonPc.splice(ataqueRandom,1)
-    }
-    iniciarpelea()
+    intervalo = setInterval(obtenerAtaques, 50)
 }
 
-function iniciarpelea(){
-    if (ataqueJugador.length === 5) {
-        combate()
-    }
+function obtenerAtaques(){
+    fetch(`http://localhost:8080/mykemon/${pcId}/ataques`)
+    .then(function (res) {
+        if(res.ok){
+            res.json()
+            .then(function ({ataques}){
+                if(ataques.length === 5){
+                    ataqueEnemigo = ataques
+                    combate()
+                }
+            })
+        }
+    })
 }
 
 //Combate
@@ -382,6 +390,7 @@ function indexAmbosOponentes(jugador, enemigo){
 }
 
 function combate(){
+    clearInterval(intervalo)
 
     for (let index = 0; index < ataqueJugador.length; index++) {
        if (ataqueJugador[index] === ataqueEnemigo[index]) {
@@ -440,6 +449,7 @@ function mensajeResultado(resultadoFinal){
 
 function reiniciarJuego(){
     location.reload()
+    clear
 }
 
 //Funcion de numeros aleatorios
@@ -462,6 +472,11 @@ function pintarCanvas(){
     petJugadorObjeto.pintarMykemon()
 
     enviarPosicion(petJugadorObjeto.x, petJugadorObjeto.y)
+
+    mykemonesPc.forEach((mykemon) => {
+        mykemon.pintarMykemon()
+        revisarColision(mykemon)
+    })
     
 }
 
@@ -481,27 +496,27 @@ function enviarPosicion(x, y){
                 res.json()
                     .then(function ({enemigos}){
                         console.log(enemigos)
-                        enemigos.forEach((enemigo)=> {
+                        mykemonesPc = enemigos.map((enemigo)=> {
                             let mykemonEnemigo = null
                             if(enemigo.mykemon != undefined){
                             const mykemonNombre = enemigo.mykemon.nombre || ""
                                 if(mykemonNombre === "Hipodoge"){
-                                    mykemonEnemigo = new Mykemon("Hipodoge", "./assets/Hipodoge.png",5)
+                                    mykemonEnemigo = new Mykemon("Hipodoge", "./assets/Hipodoge.png",5, enemigo.id)
                                 } else if(mykemonNombre === "Capipepo"){
-                                    mykemonEnemigo = new Mykemon("Capipepo", "./assets/Capipepo.png",5)
+                                    mykemonEnemigo = new Mykemon("Capipepo", "./assets/Capipepo.png",5, enemigo.id)
                                 }else if(mykemonNombre === "Ratigueya"){
-                                    mykemonEnemigo = new Mykemon("Ratigueya", "./assets/Ratigueya.png",5)
+                                    mykemonEnemigo = new Mykemon("Ratigueya", "./assets/Ratigueya.png",5, enemigo.id)
                                 }else if (mykemonNombre === "Langostelvis"){
-                                    mykemonEnemigo = new Mykemon("Langostelvis", "./assets/Langostelvis.gif",5)
+                                    mykemonEnemigo = new Mykemon("Langostelvis", "./assets/Langostelvis.gif",5, enemigo.id)
                                 }else if(mykemonNombre === "Tucapalma"){
-                                    mykemonEnemigo = new Mykemon("Tucapalma", "./assets/Tucapalma.gif",5)
+                                    mykemonEnemigo = new Mykemon("Tucapalma", "./assets/Tucapalma.gif",5, enemigo.id)
                                 }else if(mykemonNombre === "Pydos"){
-                                    mykemonEnemigo = new Mykemon("Pydos", "./assets/Pydos.gif",5)
+                                    mykemonEnemigo = new Mykemon("Pydos", "./assets/Pydos.gif",5, enemigo.id)
                                 }
 
                             mykemonEnemigo.x = enemigo.x
                             mykemonEnemigo.y = enemigo.y
-                            mykemonEnemigo.pintarMykemon()
+                            return mykemonEnemigo
                         }
                         })
                     })
@@ -600,6 +615,8 @@ function revisarColision(enemigo){
     detenerMovimiento()
     
     clearInterval(intervalo)
+
+    pcId = enemigo.id
     
     sectionVerMapa.style.display = "none"
     sectionAtaques.style.display = "flex"

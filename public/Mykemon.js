@@ -64,7 +64,7 @@ let mapaBackground = new Image()
 mapaBackground.src = "./assets/Mykemap.png"
 let alturaBuscada
 let anchoDelMapa = window.innerWidth - 40
-const anchoMaximoMapa = 800
+const anchoMaximoMapa = 350
 
 if(anchoDelMapa > anchoMaximoMapa){
     anchoDelMapa = anchoMaximoMapa - 20
@@ -82,8 +82,8 @@ class Mykemon{
         this.foto = foto
         this.vida = vida
         this.ataques = []
-        this.ancho = 50
-        this.alto = 50
+        this.ancho = mapa.width* 50 / 350
+        this.alto = mapa.width* 50 / 350
         this.x = aleatorio(0, mapa.width - this.ancho)
         this.y = aleatorio(0, mapa.height - this.alto)
         this.mapaFoto = new Image()
@@ -205,7 +205,7 @@ function iniciarJuego(){
 }
 
 function unirseAlJuego(){
-    fetch("http://localhost:8080/unirse")
+    fetch("http://192.168.1.134:8080/unirse")
         .then( (res) => {
             if(res.ok){
                 res.text()
@@ -274,7 +274,7 @@ function seleccionarPetJugador(){
 }
 
 function seleccionarMykemon(petJugador){
-    fetch(`http://localhost:8080/mykemon/${jugadorId}`, {
+    fetch(`http://192.168.1.134:8080/mykemon/${jugadorId}`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -346,7 +346,7 @@ function secuenciaAtaques() {
 }
 
 function enviarAtaques(){
-    fetch(`http://localhost:8080/mykemon/${jugadorId}/ataques`,{
+    fetch(`http://192.168.1.134:8080/mykemon/${jugadorId}/ataques`,{
         method: "post",
         headers:{
             "Content-Type": "application/json"
@@ -360,7 +360,7 @@ function enviarAtaques(){
 }
 
 function obtenerAtaques(){
-    fetch(`http://localhost:8080/mykemon/${pcId}/ataques`)
+    fetch(`http://192.168.1.134:8080/mykemon/${pcId}/ataques`)
     .then(function (res) {
         if(res.ok){
             res.json()
@@ -442,6 +442,7 @@ function mensajeResultado(resultadoFinal){
 
 function reiniciarJuego(){
     location.reload()
+
 }
 
 //Funcion de numeros aleatorios
@@ -474,7 +475,7 @@ function pintarCanvas(){
 }
 
 function enviarPosicion(x, y){
-    fetch(`http://localhost:8080/mykemon/${jugadorId}/posicion`, {
+    fetch(`http://192.168.1.134:8080/mykemon/${jugadorId}/posicion`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -506,8 +507,8 @@ function enviarPosicion(x, y){
                                     mykemonEnemigo = new Mykemon("Pydos", "./assets/Pydos.gif",5, enemigo.id)
                                 }
 
-                            mykemonEnemigo.x = enemigo.x
-                            mykemonEnemigo.y = enemigo.y
+                            mykemonEnemigo.x = enemigo.x || 0
+                            mykemonEnemigo.y = enemigo.y || 0
                             return mykemonEnemigo
                         }
                         })

@@ -33,11 +33,31 @@
     <section id="ver-mapa">
         <h2 class="subtitulo">Recorre el mapa con tu Mykemon</h2>
         <canvas id="mapa"></canvas>
-        <button onmouseup="detenerMovimiento()" onmousedown="moverArriba()">Arriba</button>
+        <button 
+        onmouseup="detenerMovimiento()" 
+        ontouchend="detenerMovimiento()"
+        onmousedown="moverArriba()"
+        ontouchstart="moverArriba()"
+        >Arriba</button>
         <div>
-            <button onmouseup="detenerMovimiento()" onmousedown="moverIzquierda()">Izquierda</button>
-            <button onmouseup="detenerMovimiento()" onmousedown="moverAbajo()">Abajo</button>
-            <button onmouseup="detenerMovimiento()" onmousedown="moverDerecho()">Derecho</button>
+            <button 
+            onmouseup="detenerMovimiento()"
+            ontouchend="detenerMovimiento()" 
+            onmousedown="moverIzquierda()"
+            ontouchstart="moverIzquierda()"
+            >Izquierda</button>
+            <button 
+            onmouseup="detenerMovimiento()"
+            ontouchend="detenerMovimiento()" 
+            onmousedown="moverAbajo()"
+            ontouchstart="moverAbajo()"
+            >Abajo</button>
+            <button 
+            onmouseup="detenerMovimiento()"
+            ontouchend="detenerMovimiento()" 
+            onmousedown="moverDerecho()"
+            ontouchstart="moverDerecho()"
+            >Derecho</button>
         </div>
     </section>
 

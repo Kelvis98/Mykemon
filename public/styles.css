@@ -235,7 +235,7 @@ input{
     border: 2px solid #6D2932;
     color: firebrick;
     margin: 10px 2px;
-
+    user-select: none;
 }
 
 @media (max-width: 1400px){
